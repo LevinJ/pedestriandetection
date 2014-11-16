@@ -339,11 +339,23 @@ elseif(HOSTED_AT_D2_NO_GPU GREATER -1)
   set(liblinear_INCLUDE_DIRS "/home/rodrigob/code/references/liblinear-1.8")
   set(liblinear_LIBRARY_DIRS "/home/rodrigob/code/references/liblinear-1.8")
 
-elseif(${HOSTNAME} STREQUAL  "the_name_of_your_machine")
+elseif(${HOSTNAME} STREQUAL  "levin-HP-EliteBook-8440p")
   # change the_name_of_your_machine to what /bin/hostname returns
 
-  message(STATUS "Using the_name_of_your_machine compilation options")
+  message(STATUS "currently using levin-HP-EliteBook-8440p")
   # start with an empty section, and see what fails as you go through the readme.text instructions
+  set( ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:/home/levin/projects/toolboxes/opencv/build/debug/install/lib/pkgconfig" )
+  option(USE_GPU "Should the GPU be used ?" TRUE)
+
+  include_directories(
+    /usr/local/include
+  )
+
+  link_directories(
+    /home/levin/projects/toolboxes/opencv/build/debug/install/lib
+  )
+  
+
 
 else ()
   message(FATAL_ERROR, "Unknown machine, please add your configuration inside doppia/common_settings.cmake")
