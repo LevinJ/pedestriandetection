@@ -12,6 +12,9 @@
 
 site_name(HOSTNAME)
 
+message(${HOSTNAME})
+
+
 # Use "gcc -v -Q -march=native -O3 test.c -o test" to see which options the compiler actualy uses
 # using -march=native will include all sse options available on the given machine (-msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2, etc...)
 # also using -march=native will imply -mtune=native
@@ -339,10 +342,10 @@ elseif(HOSTED_AT_D2_NO_GPU GREATER -1)
   set(liblinear_INCLUDE_DIRS "/home/rodrigob/code/references/liblinear-1.8")
   set(liblinear_LIBRARY_DIRS "/home/rodrigob/code/references/liblinear-1.8")
 
-elseif(${HOSTNAME} STREQUAL  "levin-HP-EliteBook-8440p")
+elseif(${HOSTNAME} STREQUAL  "levin-Lenovo-V4400")
   # change the_name_of_your_machine to what /bin/hostname returns
 
-  message(STATUS "currently using levin-HP-EliteBook-8440p")
+  message(STATUS "currently using levin-Lenovo-V4400")
   # start with an empty section, and see what fails as you go through the readme.text instructions
   set( ENV{PKG_CONFIG_PATH} "$ENV{PKG_CONFIG_PATH}:/home/levin/projects/toolboxes/opencv/build/debug/install/lib/pkgconfig" )
   option(USE_GPU "Should the GPU be used ?" TRUE)
@@ -354,6 +357,8 @@ elseif(${HOSTNAME} STREQUAL  "levin-HP-EliteBook-8440p")
   link_directories(
     /home/levin/projects/toolboxes/opencv/build/debug/install/lib
   )
+  set(OpenCV_DIR  /home/levin/projects/toolboxes/opencv/build/debug)
+  find_package( OpenCV REQUIRED )
   
 
 
@@ -365,11 +370,11 @@ endif ()
 
 # ----------------------------------------------------------------------
 # enable compilation for shared libraries
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -Xcompiler -fpic" CACHE STRING "nvcc flags" FORCE)
+#set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -Xcompiler -fpic" CACHE STRING "nvcc flags" FORCE)
 
 if(CMAKE_BUILD_TYPE MATCHES "Debug")
   # enable cuda debug information, to use with cuda-dbg
-  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -g -G" CACHE STRING "nvcc flags" FORCE)
+#  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -g -G" CACHE STRING "nvcc flags" FORCE)
 else()
 # FIXME disabled only for testing
 #  set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -O3 --use_fast_math"  CACHE STRING "nvcc flags" FORCE) # speed up host and device code
