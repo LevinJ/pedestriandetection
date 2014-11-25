@@ -370,7 +370,7 @@ endif ()
 
 # ----------------------------------------------------------------------
 # enable compilation for shared libraries
-#set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -Xcompiler -fpic" CACHE STRING "nvcc flags" FORCE)
+set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -Xcompiler -fpic" CACHE STRING "nvcc flags" FORCE)
 
 if(CMAKE_BUILD_TYPE MATCHES "Debug")
   # enable cuda debug information, to use with cuda-dbg

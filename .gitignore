@@ -3,3 +3,17 @@ build/
 *.config.ini~
 *.cmake~
 .gitignore~
+InriaPerson_octave_0_train/
+libs/liblinear-1.8/
+CMakeFiles/
+Makefile
+cmake_install.cmake
+*.so
+*.a
+CMakeCache.txt
+*.txt~
+src/applications/objects_detection/objects_detection!*.*
+#record files for detection results
+*_recordings/
+
+
