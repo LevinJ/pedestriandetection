@@ -12,8 +12,14 @@ cmake_install.cmake
 *.a
 CMakeCache.txt
 *.txt~
-src/applications/objects_detection/objects_detection!*.*
 #record files for detection results
 *_recordings/
+2014_11_25_55141_fast_training.bootstrap*
+*.pyc
+.project
+.pydevproject
+.settings/
+convertoCaltech
+convertedcaltechformat/
 
 
