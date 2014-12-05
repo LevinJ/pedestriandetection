@@ -24,8 +24,7 @@ def get_path_and_id(infile):
     num = templist[2].split(".")[0]
     num = num[1: len(num)]
     num = int(num) + 1
-    templist = [result_file_path, str(num)]
-    return templist
+    return {"file_path": result_file_path, "numtoadd":str(num)}
     
     
 def generate_result_files(output_path):
@@ -33,14 +32,13 @@ def generate_result_files(output_path):
     for infile in sorted(filelist): 
         #do some fancy stuff
         print str(infile) 
-        templist = get_path_and_id(infile)
+        respathid = get_path_and_id(infile)
         with open(infile) as f:
             linelist =[]
             for line in f:
-                numtoadd = templist[1]
-                linelist.append(numtoadd + "," + line)
-            print(templist[0],linelist)
-            write_file_force(templist[0],linelist)
+                linelist.append(respathid["numtoadd"] + "," + line)
+            print(respathid["file_path"],linelist)
+            write_file_force(respathid["file_path"],linelist)
         
     
 
