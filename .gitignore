@@ -21,5 +21,6 @@ CMakeCache.txt
 .settings/
 convertoCaltech
 convertedcaltechformat/
+data/sample_test_images/
 
 

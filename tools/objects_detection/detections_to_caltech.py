@@ -8,6 +8,7 @@ import sys
 import shutil
 import os
 import glob
+import generate_final_caltech_format_results
 local_dir = os.path.dirname(sys.argv[0])
 sys.path.append(os.path.join(local_dir, ".."))
 sys.path.append(os.path.join(local_dir, "../data_sequence"))
@@ -131,32 +132,13 @@ def detections_to_caltech(input_path, output_path):
     
     return
 
-def generate_final_file():
-    file_path = "./convertedcaltechformat"
-    imageid = 0
-    resultFilePath = file_path + "/V000.txt"
-    if os.path.exists(resultFilePath):
-        os.remove(resultFilePath)
-    filelist = glob.glob(os.path.join(file_path, '*.txt'))
-    text_file = open(resultFilePath, "a") # append to the file
-    for infile in sorted(filelist): 
-        #do some fancy stuff
-        imageid = imageid + 1
-        with open(infile) as f:
-            for line in f:
-                line = str(imageid) + "," + line
-                text_file.write(line)
-                print(line)
 
-    text_file.close()
-    print("Created file ", resultFilePath)
-    return
 
 def main():
     
     options = parse_arguments()    
     detections_to_caltech(options.input_path, options.output_path)
-    generate_final_file()
+    generate_final_caltech_format_results.generate_result_files(options.output_path)
     return
 
 
