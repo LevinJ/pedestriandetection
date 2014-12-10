@@ -25,5 +25,6 @@ data/sample_test_images/
 data/trained_models/custom/
 src/applications/boosted_learning/boosted_learning
 src/applications/objects_detection/objects_detection
+tools/objects_detection/detection_result/
 
 
