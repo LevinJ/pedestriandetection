@@ -8,25 +8,25 @@ import glob
 import shutil
 import re
 
-"""
-Write data to a file, create the file and corresponding direcotry they do not already exist
-"""
+
 def write_file_force(resultFilePath, lines):
+    """Write data to a file, create the file and corresponding direcotry if they do not already exist."""
     resultfiledir = os.path.dirname(resultFilePath)
     if not os.path.exists(resultfiledir):
         os.makedirs(resultfiledir)
     #text_file = open(resultFilePath, "a+") # append to the file
     with open(resultFilePath,"a+",) as f:
         f.writelines(lines)
-"""
-Use Regular expression to extract result file path and image id (number to be added to each line) 
-For example, the inpput could be  ./convertedcaltechformat/set06_V000_I00029.txt
-After the processing of this function, three values will be extracted:
-set06, V000, 29
-and the final output will be
-{"file_path": "./convertedcaltechformat/set06", "numtoadd":"29"}
-"""
+
 def get_path_and_id(infile):
+    """Use Regular expression to extract result file path and image id. 
+    
+    For example, the input could be  ./convertedcaltechformat/set06_V000_I00029.txt
+    After the processing of this function, three values will be extracted from base name of the file
+    set06, V000, 29
+    and the  output will be
+    {"result_file_path": "./convertedcaltechformat/set06/V000.txt", "imageid_to_insert":"29"}
+    """
     filebasename = os.path.basename(infile)
     p = re.compile("(^set\d*)_(V\d*)_I(.*)\.txt$")
     m = p.match(filebasename)
@@ -47,6 +47,7 @@ def get_path_and_id(infile):
     
     
 def generate_result_files(input_path):
+    """Generate detection result files which are required by Caltech pedestrian detection evaluation tools."""
     filelist = glob.glob(os.path.join(input_path, '*.txt'))
     for infile in sorted(filelist): 
         #do some fancy stuff
@@ -59,10 +60,8 @@ def generate_result_files(input_path):
             print(respathid["result_file_path"],linelist)
             write_file_force(respathid["result_file_path"],linelist)
 
-"""
-A helper function that allows for easy debugging of this script
-"""
-def debug_this_script():        
+def debug_this_script():   
+    """A helper function that allows for easy debugging of this script"""     
     input_path= "./detection_result/baseline/Inriamodel-Inriaimages/2014_12_09_79209_recordings/caltechformat"  
     #output_path= "./detection_result/baseline/Inriamodel-Caltechimages/2014_12_09_77307_recordings/caltechformat" 
     res_output_path =  input_path + "/res"
@@ -71,4 +70,4 @@ def debug_this_script():
         shutil.rmtree(res_output_path)
     generate_result_files(input_path)
     
-debug_this_script()
+#debug_this_script()
